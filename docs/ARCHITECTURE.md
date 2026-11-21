@@ -1,55 +1,41 @@
-# Arquitectura — Guía para desarrolladores
+# Arquitectura de referencia v4
 
-## Objetivo
-Separar presentación del catálogo, reglas de negocio y visor WebGL. **No** mezclar datos y lógica de renderizado dentro del `index.html`.
+## Fronteras de módulos
 
-## Flujo
+`products.js` → `CatalogService` → `ProductCard` y `DetailsDrawer` → `main.js` (coordinación) → `Viewer3D` → `GLTFLoader` → modelos GLB.
 
-```text
-index.html
-  └── js/main.js  [estado de interfaz + eventos]
-      ├── CatalogService.js [filtrado puro]
-      │    └── products.js [datos]
-      ├── components/ [templates HTML sin estado]
-      └── Viewer3D.js [GPU y animación]
-           ├── RoomFactory.js [geometría de ambientes]
-           └── LightingController.js [materiales y luces]
+- `main.js`: estado de navegación, delegación de eventos, apertura/cierre de vistas; nunca construye geometría.
+- `components/*`: retornan HTML a partir de datos saneados; no gestionan recursos de GPU.
+- `Viewer3D`: crea su escena y cámara y las destruye al salir; recibe un producto con `id` y `modelUrl`.
+- `LightingController`: administra materiales emisivos de cada GLB, encendido y brillo; no altera modelos originales en el catálogo.
+- `RoomFactory`: sala, comedor y cocina con Z vertical y cámara fija.
+- `tools/generate_models.py`: generación procedural independiente del frontend.
+
+## Contrato de producto
+
+```js
+{
+  id: 'harley', // ID utilizado por el rig y por la ruta del modelo
+  name: 'HARLEY',
+  image: 'harley.webp',
+  modelUrl: './assets/models/harley.glb',
+  watts: 152,
+  price: 205
+}
 ```
 
-## Entidades
+Todos los modelos usan **metros aproximados, centro X=0/Y=0, Z vertical**, base del plafón próxima a Z=3. Los anillos exportan las mallas `Ring_1_Metal`, `Ring_1_LED`, etc. Las suspensiones fijas se ocultan solo en los cuatro modelos animables, y el visor recrea cables de longitud dinámica.
 
-### Producto
-- `id`: identificador estable, usado por botones y seleccionador.
-- `name`, `code`, `watts`, `price`, `materials`, `dimensions`, `lumens`, `temperature`: ficha.
-- `image`: nombre de archivo dentro de `assets/images/products/`.
-- `modelUrl`: ruta relativa hacia un GLB verificado. Si es `null`, la página ofrece **demo con otro producto claramente identificado**.
-- `style`, `finish`, `category`, `stock`: atributos para filtros y futuras integraciones.
+## Rendimiento
 
-### Estado de interfaz
-- `state.mode`: pantalla actual (`catalog` / `viewer`).
-- `state.roomMode`: tipo de vista (`viewer`, `sala`, `comedor`, `cocina`, `try`).
-- `state.query`, `maxPrice`, `styles`, `finishes`, `power`, `sort`: búsqueda/filtros.
-- `state.favorites`, `cart`: `Set` en memoria, no base de datos.
-- `state.night`, `wallColor`: personalización actual.
+- La app inicial solo carga imágenes del catálogo. El motor WebGL se crea al entrar al visor.
+- Un único archivo GLB por luminaria (~115 a 210 KB en esta versión); geometrías con pocos polígonos.
+- `requestAnimationFrame` solo existe mientras el usuario está en el visor; `dispose` libera WebGLRenderer, OrbitControls, materiales y geometrías.
+- `devicePixelRatio` limitado a 1.8 para pantallas de alta densidad.
 
-## Responsabilidades de Three.js
+## Evolución
 
-`Viewer3D` crea renderer, cámara, controles, carga GLB y gestiona el ciclo de vida. Usa `dispose()` al abandonar el visor para liberar texturas, geometría y WebGL context.
-
-`RoomFactory` construye versiones **geométricas ligeras** del cuarto, con materiales compartidos para cambio de color. Coordenadas: X horizontal, Y profundidad, Z vertical.
-
-`LightingController` cambia emisión e iluminación visual. **No representa cálculos de lux o luminancia real.**
-
-## Siguiente fase para producción
-
-1. Obtener GLB/GLTF reales y optimizados para cada luminaria con dimensiones del fabricante.
-2. Mantener por modelo `scale`, `rotation`, `mountAnchor`, `lightConfig`, `dimensionsMeters`.
-3. Sustituir habitaciones procedurales por GLB optimizados, con puntos de anclaje coherentes.
-4. API para catálogo, inventario y precios, más carrito persistente.
-5. Cargar modelos bajo demanda con caché; convertir texturas a KTX2, geometría Draco o Meshopt cuando proceda.
-6. Crear tests visuales en navegadores y móviles; añadir fallback de captura cuando WebGL no esté disponible.
-7. Normalizar el contrato de escena para exportar después configuraciones a Unity Web o una app Unity nativa.
-
-## Nota sobre recursos
-
-Las fotografías de catálogo son recortes de las referencias suministradas y no representan archivos originales de fabricantes. Evitar publicación comercial sin autorización.
+1. Sustituir modelos conceptuales por modelos CAD/GLB de los proveedores, optimizados para web.
+2. Agregar mapas normales, texturas KTX2 y compresión Meshopt/Draco si crece el catálogo.
+3. Añadir catálogo remoto y referencias a escenas almacenadas para compartir configuraciones con Unity.
+4. Implementar mediciones reales solo con especificaciones fotométricas verificadas del fabricante.

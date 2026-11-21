@@ -54,11 +54,17 @@ function closeDetails(){state.drawerId=null;const root=document.querySelector('#
 function toast(message){let el=document.querySelector('#toast');if(!el){el=document.createElement('div');el.id='toast';el.setAttribute('role','status');document.body.append(el);}el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2800);}
 function openViewer(id,mode='viewer'){
   const product=catalog.findById(id)||catalog.findById('akela');
-  if(!product.modelUrl){showDetails(product.id);toast('Aún no hay un modelo 3D para este producto.');return;}
+  if(!product.modelUrl){showDetails(product.id);toast('Este producto todavía no dispone de modelo 3D.');return;}
   state.selectedProductId=product.id;state.mode='viewer';state.roomMode=mode;state.night=false;state.wallColor=WALL_COLORS[0][1];
   app.innerHTML=ViewerShell(product,mode);
-  viewer=new Viewer3D(document.querySelector('#three-canvas'),{modelUrl:product.modelUrl,onStatus:(message)=>{const node=document.querySelector('#canvas-status');if(node){node.textContent=message;node.classList.add('visible');setTimeout(()=>node?.classList.remove('visible'),2400);}}});
+  viewer=new Viewer3D(document.querySelector('#three-canvas'),{product,onStatus:(message)=>{const node=document.querySelector('#canvas-status');if(node){node.textContent=message;node.classList.add('visible');setTimeout(()=>node?.classList.remove('visible'),2400);}}});
   setRoomMode(mode);
+  const ringProduct=['harley','akela','orbis','velar'].includes(product.id);
+  document.querySelector('#layout-horizontal').style.display=ringProduct?'':'none';
+  document.querySelector('#layout-diagonal').style.display=ringProduct?'':'none';
+  const initialLayout=['harley','velar'].includes(product.id)?'diagonal':'horizontal';
+  document.querySelector('#layout-horizontal').classList.toggle('chosen',initialLayout==='horizontal');
+  document.querySelector('#layout-diagonal').classList.toggle('chosen',initialLayout==='diagonal');
 }
 function destroyViewer(){if(viewer){viewer.dispose();viewer=null;}}
 function setRoomMode(mode){
@@ -85,7 +91,7 @@ document.addEventListener('click',event=>{
     if(action==='close-details'){closeDetails();return;}
     if(action==='view'){openViewer(id,'viewer');return;}
     if(action==='try'){openViewer(id,'try');return;}
-    if(action==='view-demo'||action==='open-viewer'){openViewer('akela','viewer');return;}
+    if(action==='view-demo'||action==='open-viewer'){openViewer(state.selectedProductId||'akela','viewer');return;}
     if(action==='rooms'){openViewer('akela','sala');return;}
     if(action==='clear-filters'){clearFilters();return;}
     if(action==='favorite'){state.favorites.has(id)?state.favorites.delete(id):state.favorites.add(id);drawProducts();updateCounters();return;}
