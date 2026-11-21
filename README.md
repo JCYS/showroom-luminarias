@@ -1,51 +1,58 @@
-# LÚMINA — Showroom 3D de luminaria
+# LÚMINA — Catálogo de luminarias y showroom 3D
 
-Proyecto web estático basado en el modelo GLB creado a partir de la fotografía de referencia.
+Prototipo modular **HTML + CSS + JavaScript ES Modules + Three.js**. Se publica en GitHub Pages sin compilación, Node ni backend.
 
-## Cómo ejecutarlo
+## Inicio rápido
 
-1. Descomprime el ZIP.
-2. Abre una terminal en la carpeta del proyecto.
-3. Ejecuta `python3 -m http.server 8000`.
-4. Abre `http://localhost:8000` en el navegador.
+```bash
+cd lumina_catalogo_v3
+python3 -m http.server 8000
+```
 
-Requiere conexión a Internet para cargar Three.js desde jsDelivr. No necesita npm ni instalación de dependencias.
+Abrir `http://localhost:8000`. Para el renderizado 3D se necesita conexión a internet porque Three.js se importa desde jsDelivr.
 
-## Funciones
+**GitHub Pages:** sube **el contenido de esta carpeta** a la raíz del repositorio, selecciona Settings → Pages → Deploy from branch → `main` / `(root)`.
 
-- Fondo arquitectónico cálido construido con CSS.
-- Cámara 3D orbitable con el mouse y zoom.
-- **Horizontal**: tres aros paralelos según la variante central de la fotografía.
-- **Vista diagonal**: inclina cada aro con una transición animada y ajusta los cables de suspensión.
-- Encendido/apagado y ajuste visual del brillo.
-- Restablecer vista.
-- Adaptación a escritorio y móviles.
+## Flujo de uso
 
-## Archivos
+1. El usuario entra al **Catálogo**, puede buscar, filtrar y ordenar las 8 luminarias demo.
+2. **Ver detalles** abre un panel lateral con ficha, precio y acciones disponibles.
+3. **Probar en ambiente** abre el showroom únicamente para productos con `modelUrl` propio.
+4. En el showroom se puede elegir **Sala / Comedor / Cocina** (cámaras fijas), **Visualizador** (cámara libre), o **Probar en ambiente** (comedor personalizable).
+5. Cambiar **color de pared, día/noche, brillo, encendido y disposición de aros**; volver al catálogo.
 
-- `index.html` — interfaz y renderizado Three.js.
-- `assets/luminaria_tres_aros.glb` — modelo 3D.
-- `create_model.py` — script original de creación del GLB.
+## Limitaciones importantes de la demo
 
-## Limitaciones
+- Los precios, stock, descripciones, fotografías recortadas de las referencias compartidas y modelos son **contenido conceptual**, no un catálogo comercial verificado.
+- Solo **AKELA** utiliza el GLB de prueba de **tres aros** creado en el proyecto anterior. Ese GLB es aproximado y **no corresponde fielmente** al artículo comercial fotografiado; debe sustituirse por el CAD/modelo GLB correcto antes de usarlo para ventas.
+- Los demás productos no tienen GLB propio: la interfaz no los hace pasar por un modelo distinto, pero permite abrir una demo con AKELA.
+- Las habitaciones se han construido con geometría procedural ligera, no con muebles fotorrealistas ni simulación fotométrica.
+- Carrito y favoritos funcionan en memoria; al recargar la página se reinician. No hay pagos, pedidos ni almacenamiento persistente.
+- Las categorías alternativas figuran deshabilitadas porque este mockup solo contiene colgantes.
 
-Es un prototipo conceptual, no una reproducción exacta del fabricante ni un estudio lumínico IES. La textura de cristal es simplificada. La disposición diagonal anima aros del modelo y reconstruye sus cables en tiempo real.
+## Estructura
 
-## Novedades — versión 2
+```text
+index.html                     Punto de entrada; no incluye lógica de negocio
+css/styles.css                 Design tokens y estilos responsive
+js/main.js                     Controlador UI y navegación
+js/data/products.js            Catálogo demo reemplazable por API
+js/services/CatalogService.js  Búsquedas, filtros, ordenación
+js/components/                 HTML declarativo de UI
+  Header.js, Filters.js, ProductCard.js, DetailsDrawer.js, ViewerShell.js
+js/three/Viewer3D.js           Three.js, cámara, GLB, arillos inclinables, limpieza GPU
+js/three/RoomFactory.js        Escenarios 3D ligeros (sala, comedor, cocina)
+js/three/LightingController.js Emisión, brillo, encendido y día/noche
+js/utils/format.js             Moneda, seguridad HTML y rutas relativas
+assets/images/products/        Fotografías de demostración
+assets/models/                 Archivo GLB del primer prototipo
+docs/ARCHITECTURE.md           Contratos de datos y guía para desarrolladores
+```
 
-La barra superior incluye cinco vistas:
+## Ampliar el catálogo
 
-- **Sala, Comedor y Cocina:** escenas 3D estilizadas, con cámara fija (no se puede girar ni hacer zoom).
-- **Visualizador:** recupera el modelo sobre el fondo original; permite girar, hacer zoom, cambiar entre aros horizontales y diagonales, encender/apagar y ajustar brillo.
-- **Probar en ambiente:** luminaria instalada en una sala 3D con cámara fija, selector de cinco colores de paredes y alternancia Día/Noche.
+Añade un objeto en `js/data/products.js` incluyendo `id`, `image`, `modelUrl` y propiedades técnicas. Si el producto no tiene modelo validado, utiliza `modelUrl:null`. Los archivos GLB se guardan en `assets/models/`. Los modelos deben seguir la convención Z vertical y estar escalados/colocados para coincidir con el ambiente, o se deberá incluir un adaptador por producto.
 
-Todos los ambientes están construidos con geometría procedural ligera de Three.js y reutilizan `assets/luminaria_tres_aros.glb`. No son fotografías ni interiores fotogramétricos; son una base funcional y ligera para desarrollar un showroom más realista.
+## Licencias / dependencias
 
-## Publicación en GitHub Pages
-
-Copia **`index.html`** y la carpeta **`assets/`** a la raíz del repositorio. En la configuración de GitHub Pages, selecciona `Deploy from a branch`, `main`, `/(root)`.
-
-URL esperada para el repositorio JCYS/showroom-luminarias:
-`https://jcys.github.io/showroom-luminarias/`
-
-No hace falta backend. El archivo GLB se solicita con la ruta relativa `./assets/luminaria_tres_aros.glb`.
+Three.js v0.169 se carga desde jsDelivr. No se incorporan dependencias locales ni paquetes de terceros en el ZIP. Las imágenes de producto se recortaron de las imágenes facilitadas por el usuario; comprueba sus derechos antes de un uso comercial.
