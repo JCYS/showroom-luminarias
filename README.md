@@ -1,74 +1,51 @@
-# LÚMINA v4 — Catálogo + ocho luminarias 3D
+# LÚMINA — Showroom 3D de luminaria
 
-Demo **HTML + CSS + JavaScript ES Modules + Three.js**. Sin build step, backend ni React. Publicable directamente en GitHub Pages.
+Proyecto web estático basado en el modelo GLB creado a partir de la fotografía de referencia.
 
-## Ejecutar
+## Cómo ejecutarlo
 
-```bash
-cd lumina_catalogo_v4
-python3 -m http.server 8000
-```
+1. Descomprime el ZIP.
+2. Abre una terminal en la carpeta del proyecto.
+3. Ejecuta `python3 -m http.server 8000`.
+4. Abre `http://localhost:8000` en el navegador.
 
-Abrir http://localhost:8000. **No abras `index.html` con `file://`**: los módulos y los archivos GLB necesitan HTTP. El import map carga Three.js 0.169.0 desde jsDelivr, por lo que necesitas acceso a internet en el navegador.
+Requiere conexión a Internet para cargar Three.js desde jsDelivr. No necesita npm ni instalación de dependencias.
 
-## Flujo de usuario
+## Funciones
 
-1. El sitio comienza en el **catálogo de ocho luminarias**.
-2. Seleccionar **Ver** abre la ficha rápida. **Probar en ambiente** abre la escena.
-3. Cada luminaria carga su propio archivo GLB desde `assets/models/<id>.glb`.
-4. En **Visualizador**, la cámara se controla con ratón y rueda. En **Sala / Comedor / Cocina / Probar**, la cámara es fija.
-5. Se puede modificar brillo, encendido, modo día/noche y color de pared; los controles horizontal/diagonal se habilitan solo en luminarias de aros (HARLEY, AKELA, ORBIS y VÉLAR).
+- Fondo arquitectónico cálido construido con CSS.
+- Cámara 3D orbitable con el mouse y zoom.
+- **Horizontal**: tres aros paralelos según la variante central de la fotografía.
+- **Vista diagonal**: inclina cada aro con una transición animada y ajusta los cables de suspensión.
+- Encendido/apagado y ajuste visual del brillo.
+- Restablecer vista.
+- Adaptación a escritorio y móviles.
 
-## Distribución de carpetas
+## Archivos
 
-- `index.html`: solo HTML base y dependencias; ninguna lógica funcional.
-- `css/styles.css`: sistema visual, responsive, catálogo y visor.
-- `js/data/products.js`: datos de ocho productos y rutas de modelos.
-- `js/components/`: presentación de tarjetas, filtros, panel, cabecera y visor.
-- `js/services/CatalogService.js`: reglas de filtrado, ordenación y búsqueda.
-- `js/three/Viewer3D.js`: ciclo de vida del renderer, GLTFLoader, cámara, rig opcional de anillos.
-- `js/three/LightingController.js`: emisión y modo nocturno.
-- `js/three/RoomFactory.js`: escenarios geométricos sencillos.
-- `tools/generate_models.py`: **script reproducible** para los ocho modelos GLB.
-- `docs/ARCHITECTURE.md`: descripción ampliada y decisiones técnicas.
+- `index.html` — interfaz y renderizado Three.js.
+- `assets/luminaria_tres_aros.glb` — modelo 3D.
+- `create_model.py` — script original de creación del GLB.
 
-## Modelos conceptuales incluidos
+## Limitaciones
 
-| GLB | Geometría principal | Acabado |
-| --- | --- | --- |
-| `harley.glb` | Tres aros inclinables | Dorado |
-| `luren.glb` | Ondas curvas entrelazadas | Dorado |
-| `luxen.glb` | Dos trazos ondulados horizontales | Dorado |
-| `noctis.glb` | Tres tiras LED lineales sinuosas | Negro |
-| `akela.glb` | Tres aros escalonados | Negro |
-| `mirabel.glb` | Araña de gotas de cristal facetado | Cromado |
-| `orbis.glb` | Tres aros escalonados | Cromado |
-| `velar.glb` | Tres aros de inclinación expresiva | Dorado |
+Es un prototipo conceptual, no una reproducción exacta del fabricante ni un estudio lumínico IES. La textura de cristal es simplificada. La disposición diagonal anima aros del modelo y reconstruye sus cables en tiempo real.
 
-Los modelos son **interpretaciones geométricas aproximadas** de las fotografías del catálogo: no son copias exactas, CAD manufacturable ni un estudio lumínico/fotométrico. Las dimensiones se han simplificado para la demo. No usar para especificaciones técnicas, cargas estructurales ni montaje real.
+## Novedades — versión 2
 
-### Regenerar archivos GLB
+La barra superior incluye cinco vistas:
 
-```bash
-python3 -m pip install numpy trimesh
-python3 tools/generate_models.py
-```
+- **Sala, Comedor y Cocina:** escenas 3D estilizadas, con cámara fija (no se puede girar ni hacer zoom).
+- **Visualizador:** recupera el modelo sobre el fondo original; permite girar, hacer zoom, cambiar entre aros horizontales y diagonales, encender/apagar y ajustar brillo.
+- **Probar en ambiente:** luminaria instalada en una sala 3D con cámara fija, selector de cinco colores de paredes y alternancia Día/Noche.
 
-El script asigna nombres a las mallas (`Ring_1_LED`, etc.) que el visor interpreta para las animaciones de anillos. Si cambias la geometría, conserva los identificadores y actualiza `RING_RIGS` en `Viewer3D.js` (radios y alturas Z).
+Todos los ambientes están construidos con geometría procedural ligera de Three.js y reutilizan `assets/luminaria_tres_aros.glb`. No son fotografías ni interiores fotogramétricos; son una base funcional y ligera para desarrollar un showroom más realista.
 
-## GitHub Pages
+## Publicación en GitHub Pages
 
-Sube **el contenido de esta carpeta** a la raíz de tu repositorio. En GitHub: **Settings → Pages → Deploy from a branch → main → /(root)**.
+Copia **`index.html`** y la carpeta **`assets/`** a la raíz del repositorio. En la configuración de GitHub Pages, selecciona `Deploy from a branch`, `main`, `/(root)`.
 
-Con el repositorio `JCYS/showroom-luminarias`, la URL prevista es:
-https://jcys.github.io/showroom-luminarias/
+URL esperada para el repositorio JCYS/showroom-luminarias:
+`https://jcys.github.io/showroom-luminarias/`
 
-Los paths `./assets/...` funcionan bajo subcarpetas de GitHub Pages. No necesitas Node.js ni una base de datos.
-
-## Límites conocidos del MVP
-
-- Las fotografías son las imágenes recortadas/procesadas de referencias compartidas para este prototipo; revisa derechos antes de una publicación comercial.
-- Los ambientes y luces son ilustrativos y no hacen simulación fotométrica real (lux/IES).
-- Precios, carrito y favoritos son demostrativos y no guardan datos de forma persistente.
-- `GLTFLoader` carga un GLB bajo demanda al abrir cada producto; al cerrar la escena se libera el renderer y los recursos de GPU. No hay predescarga de los ocho modelos.
-- Unity/Web no está incluido en este paquete.
+No hace falta backend. El archivo GLB se solicita con la ruta relativa `./assets/luminaria_tres_aros.glb`.
