@@ -21,6 +21,10 @@ body{background:#c6ad96}button{font:inherit;cursor:pointer}.showroom{position:fi
 .caption{position:absolute;z-index:4;left:clamp(20px,4vw,70px);top:22%;max-width:260px;pointer-events:none}.eyebrow{font-size:11px;letter-spacing:.24em;font-weight:700;text-transform:uppercase;color:#82644c}.caption h1{font-size:clamp(27px,3vw,46px);line-height:1.09;font-weight:450;letter-spacing:-.05em;margin:12px 0}.caption p{font-size:14px;line-height:1.7;color:#775f50}
 .controls{position:absolute;z-index:5;bottom:clamp(20px,4vh,48px);left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;padding:9px;border:1px solid #fff9;border-radius:22px;background:var(--glass);backdrop-filter:blur(18px);box-shadow:0 18px 55px #6f4c3436;max-width:calc(100vw - 30px)}.button{border:1px solid transparent;border-radius:15px;background:transparent;color:#654e3c;padding:12px 15px;white-space:nowrap;transition:.18s}.button:hover{background:#fff9}.button.active{background:#594737;color:#fff3dc;box-shadow:0 3px 12px #6b4a3333}.separator{width:1px;height:27px;background:#b9a28d99;margin:0 3px}.brightness{display:flex;align-items:center;gap:9px;padding:0 12px;font-size:12px;white-space:nowrap}.brightness input{accent-color:#7d5940;width:85px}.power{width:42px;height:42px;border-radius:14px;border:0;background:#f0deca;color:#5c4434;font-size:20px}.power.off{background:#bca99a;color:#eee}.corner-note{position:absolute;right:25px;bottom:16px;color:#624a3a;font-size:11px;opacity:.75}#status{position:absolute;top:77px;right:4vw;font-size:12px;color:#694a37}.hint{position:absolute;bottom:115px;left:50%;transform:translateX(-50%);font-size:12px;color:#684f3d;white-space:nowrap;opacity:.77}
 @media(max-width:740px){.nav-note{display:none}.caption{top:95px;max-width:190px}.caption h1{font-size:28px}.caption p{font-size:12px}.controls{bottom:20px;width:calc(100% - 24px);flex-wrap:wrap;justify-content:center;gap:4px}.button{padding:10px 11px;font-size:12px}.brightness{padding:0 5px}.brightness input{width:65px}.hint{bottom:128px}.corner-note{display:none}.brand{font-size:16px}.arch{left:-56%;width:110%}}
+
+/* Navegación de ambientes */
+.topbar{top:24px;align-items:flex-start}.nav-note{padding-top:9px}.environment-nav{position:absolute;z-index:8;top:80px;left:50%;transform:translateX(-50%);display:flex;gap:5px;padding:7px;background:rgba(255,248,237,.88);backdrop-filter:blur(22px);border:1px solid #fff8;border-radius:19px;box-shadow:0 16px 50px #70513729;max-width:calc(100vw - 24px);overflow-x:auto;scrollbar-width:none}.environment-nav::-webkit-scrollbar{display:none}.env-btn{padding:11px 16px;border:0;border-radius:12px;color:#725943;white-space:nowrap;background:transparent;font-weight:600;font-size:12px;transition:background .2s,color .2s}.env-btn:hover{background:#fff8}.env-btn.active{background:#584535;color:#fff6e7}.env-btn.try{border:1px solid #b08e70;margin-left:4px}.env-btn.try.active{background:#795438}.environment-nav .nav-divider{width:1px;min-width:1px;background:#b9a18a;margin:8px 3px}.ambient-panel{position:absolute;z-index:7;bottom:40px;left:50%;transform:translateX(-50%);padding:13px 18px;background:rgba(255,247,231,.91);backdrop-filter:blur(18px);border:1px solid #fff9;border-radius:19px;display:none;align-items:center;gap:17px;box-shadow:0 15px 42px #58433223;white-space:nowrap}.ambient-panel.visible{display:flex}.ambient-panel .panel-title{font-size:12px;font-weight:700}.swatches{display:flex;gap:6px}.swatch{width:27px;height:27px;padding:0;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 1px #a58e78aa}.swatch.selected{box-shadow:0 0 0 2px #67442d}.day-options{display:flex;gap:5px;background:#e2d0bc;border-radius:11px;padding:3px}.day-options button{border:0;background:transparent;padding:8px 11px;border-radius:9px;color:#604a39;font-size:12px}.day-options button.selected{background:#fff7e8;box-shadow:0 2px 6px #9b806455}.fixed-note{position:absolute;z-index:6;bottom:42px;left:50%;transform:translateX(-50%);font-size:12px;padding:10px 19px;border-radius:22px;background:#fff2dfc9;color:#5f4737;display:none;white-space:nowrap}.scene-room .showroom{background:radial-gradient(ellipse at 50% 30%,#eee0ca,#c7ad98)}.scene-room .showroom>div{display:none}.scene-room .caption{top:22%;max-width:220px}.scene-room .controls,.scene-room .hint{display:none}.scene-room:not(.scene-try) .fixed-note{display:block}.scene-try .caption{top:22%}.scene-try .ambient-panel{display:flex}.scene-try.scene-night .showroom{background:radial-gradient(ellipse at 40% 30%,#5b6573,#242c3a)}.scene-try.scene-night .caption,.scene-try.scene-night .caption p,.scene-try.scene-night .eyebrow{color:#fff0d8}.scene-try.scene-night .brand,.scene-try.scene-night .nav-note{color:#fff0d8}.scene-try.scene-night .corner-note{color:#fff0d8}
+@media(max-width:850px){.environment-nav{top:72px;left:12px;right:12px;transform:none}.env-btn{padding:10px 12px;font-size:11px}.scene-room .caption{top:146px;left:18px;max-width:170px}.scene-room .caption h1{font-size:25px}.scene-room .caption p{font-size:12px}.ambient-panel{bottom:20px;gap:8px;padding:9px;max-width:calc(100vw - 18px);flex-wrap:wrap;justify-content:center}.ambient-panel .panel-title{font-size:11px}.swatch{width:24px;height:24px}.scene-room .corner-note{display:none}.fixed-note{bottom:22px}}
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
 </head>
@@ -28,7 +32,12 @@ body{background:#c6ad96}button{font:inherit;cursor:pointer}.showroom{position:fi
 <div class="showroom"><div class="ceiling"></div><div class="arch"></div><div class="pillar"></div><div class="floor"></div><div class="pedestal"></div><div class="decor"></div></div>
 <canvas id="viewer" aria-label="Visor tridimensional de luminaria LED de tres aros"></canvas>
 <div class="topbar"><div class="brand">LÚMINA<span style="color:#8a6a53">.</span></div><div class="nav-note">Colección de iluminación · Vista 3D</div></div>
+<nav class="environment-nav" aria-label="Seleccionar ambiente">
+<button class="env-btn" data-scene="sala">Sala</button><button class="env-btn" data-scene="comedor">Comedor</button><button class="env-btn" data-scene="cocina">Cocina</button><span class="nav-divider"></span><button class="env-btn active" data-scene="visualizador">◈ Visualizador</button><button class="env-btn try" data-scene="probar">✧ Probar en ambiente</button>
+</nav>
 <div class="caption"><div class="eyebrow">Luminaria suspendida / 001</div><h1>La luz en<br><em>movimiento.</em></h1><p>Tres aros luminosos, infinitas posibilidades de diseño.</p></div>
+<div class="ambient-panel" id="ambient-panel"><span class="panel-title">Paredes</span><div class="swatches"><button class="swatch selected" data-wall="sand" title="Arena" aria-label="Pared arena" style="background:#d4bda6"></button><button class="swatch" data-wall="white" title="Marfil" aria-label="Pared marfil" style="background:#f3eadf"></button><button class="swatch" data-wall="sage" title="Verde salvia" aria-label="Pared verde salvia" style="background:#a8b6a4"></button><button class="swatch" data-wall="clay" title="Terracota" aria-label="Pared terracota" style="background:#a97864"></button><button class="swatch" data-wall="slate" title="Gris pizarra" aria-label="Pared gris pizarra" style="background:#69717d"></button></div><span class="panel-title">Ambiente</span><div class="day-options"><button id="day" class="selected">☀ Día</button><button id="night">☾ Noche</button></div></div>
+<div class="fixed-note">Vista fija del ambiente · Elige «Visualizador» para girar la luminaria</div>
 <div id="status">Cargando modelo 3D…</div><div class="hint">Arrastra para girar · Rueda para acercar</div>
 <div class="controls"><button type="button" class="button active" id="btn-horizontal" aria-pressed="true">◎ Horizontal</button><button type="button" class="button" id="btn-diagonal" aria-pressed="false">◈ Vista diagonal</button><div class="separator"></div><button type="button" class="power" id="power" aria-label="Apagar iluminación" title="Encender o apagar">⏻</button><label class="brightness">Brillo <input type="range" id="brightness" min="0" max="3" step="0.05" value="1.65"></label><button type="button" class="button" id="reset">↺ Reiniciar</button></div>
 <div class="corner-note">Modelo conceptual · Previsualización, no simulación fotométrica</div>
@@ -85,10 +94,94 @@ function updateBrightness(){const val= powered ? Number(document.querySelector('
   ledMaterials.forEach(({material,emissive})=>{material.emissive.copy(emissive).multiplyScalar(val);material.needsUpdate=true;});
   glowLights.forEach((light,i)=>{light.intensity=val*[1.3,1.0,.8][i];});
 }
+
+// Arquitectura del showroom: las habitaciones 3D comparten la luminaria real GLB.
+const roomRoot=new THREE.Group();scene.add(roomRoot);roomRoot.visible=false;
+const roomLight=new THREE.HemisphereLight('#fff7e8','#7d7369',0);scene.add(roomLight);
+const sunlight=new THREE.DirectionalLight('#fff4d6',0);sunlight.position.set(-4,-5,8);scene.add(sunlight);
+const nightFill=new THREE.PointLight('#a8c5ff',0,15);nightFill.position.set(-2,-2,3);scene.add(nightFill);
+let activeScene='visualizador',wallColor='sand',nightMode=false;
+const wallPalette={sand:'#d4bda6',white:'#f3eadf',sage:'#a8b6a4',clay:'#a97864',slate:'#69717d'};
+const wallMaterials=[];
+function mat(color,roughness=.87,metalness=0){return new THREE.MeshStandardMaterial({color,roughness,metalness});}
+function box(parent,w,d,h,x,y,z,material){const o=new THREE.Mesh(new THREE.BoxGeometry(w,d,h),material);o.position.set(x,y,z);parent.add(o);return o;}
+function sphere(parent,r,x,y,z,material){const o=new THREE.Mesh(new THREE.SphereGeometry(r,16,12),material);o.position.set(x,y,z);parent.add(o);return o;}
+function cylinder(parent,rt,rb,h,x,y,z,material){const o=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,32),material);o.rotation.x=Math.PI/2;o.rotation.x=0;o.position.set(x,y,z);parent.add(o);return o;}
+function pillow(parent,x,y,z,col){const p=box(parent,.54,.40,.16,x,y,z,mat(col));p.rotation.z=.08;}
+function plant(parent,x,y){const pot=mat('#a89077');cylinder(parent,.21,.17,.44,x,y,-.08,pot);const branch=mat('#4d6145');for(let i=0;i<7;i++){const a=i*Math.PI*2/7;sphere(parent,.21,x+Math.cos(a)*.18,y+Math.sin(a)*.16,.37+(i%3)*.15,branch);}}
+function createRoom(type){roomRoot.clear();wallMaterials.length=0;
+ const wall=mat(wallPalette[wallColor]);wallMaterials.push(wall);
+ const dark=mat('#776354'),white=mat('#efe5d8'),wood=mat('#8a6146'),seat=mat('#b7aaa0'),gold=mat('#b79a67',.25,.55),trim=mat('#e9d5bc');
+ box(roomRoot,11,10,.18,0,.3,-.67,mat('#c4aa8e'));
+ box(roomRoot,11,.18,5.2,0,3.45,1.95,wall);
+ box(roomRoot,.18,10,5.2,-5.4,.3,1.95,wall);
+ // Arquitectura: z es vertical en este proyecto.
+ box(roomRoot,10.7,.08,.12,0,3.26,-.33,trim);
+ box(roomRoot,.09,9.5,.12,-5.20,.2,-.33,trim);
+ // Ventana lateral luminosa, con marco y panel celeste.
+ box(roomRoot,.055,2.6,2.7,-5.28,-1.85,1.68,mat('#c7d9dd'));
+ box(roomRoot,.08,.10,2.80,-5.23,-1.85,1.68,white);
+ box(roomRoot,.085,2.63,.08,-5.22,-1.85,1.78,white);
+ for(const yy of [-3.1,-.58])box(roomRoot,.095,.08,2.72,-5.20,yy,1.68,white);
+ // Arte colgado al fondo.
+ if(type==='sala'||type==='probar'){
+   box(roomRoot,1.8,.075,1.20,2.6,3.24,1.98,wood);
+   box(roomRoot,1.57,.077,.98,2.6,3.18,1.98,mat('#c8b0a0'));
+   sphere(roomRoot,.30,2.46,3.10,2.1,mat('#eee0c6'));
+   box(roomRoot,3.65,1.05,.52,-1.55,.75,-.07,seat);
+   box(roomRoot,3.65,.35,.9,-1.55,1.28,.42,seat);
+   box(roomRoot,.32,1.12,.72,-3.3,.72,.24,seat);
+   box(roomRoot,.32,1.12,.72,.22,.72,.24,seat);
+   for(const dx of [-2.5,-1.7,-.7])pillow(roomRoot,dx,.65,.27,dx===-1.7?'#f5e9d7':'#dfceba');
+   box(roomRoot,2.4,1.5,.045,-1.1,-1.3,-.52,mat('#e8d9c5'));
+   cylinder(roomRoot,.65,.65,.12,-.8,-1.2,-.27,wood);
+   cylinder(roomRoot,.43,.45,.32,-.8,-1.2,-.42,wood);
+   cylinder(roomRoot,.14,.19,.18,-.9,-1.2,-.1,white);
+   plant(roomRoot,3.75,1.8);
+ }
+ if(type==='comedor'){
+   box(roomRoot,3.2,1.65,.16,0,.3,.10,wood);
+   for(const x of [-1.30,1.30])for(const y of [-.29,.95])box(roomRoot,.15,.15,.71,x,y,-.36,dark);
+   for(const x of [-1.15,0,1.15])for(const y of [-1.12,1.75]){
+     box(roomRoot,.66,.64,.13,x,y,-.19,seat);
+     box(roomRoot,.68,.14,.72,x,y+(y>0?.28:-.28),.18,seat);
+     box(roomRoot,.08,.08,.35,x-.25,y,-.42,dark);box(roomRoot,.08,.08,.35,x+.25,y,-.42,dark);
+   }
+   cylinder(roomRoot,.09,.09,.25,0,.3,.31,gold);
+   plant(roomRoot,3.55,1.8);
+ }
+ if(type==='cocina'){
+   box(roomRoot,6.7,.8,.78,.4,2.72,-.02,wood);
+   box(roomRoot,6.7,.9,.09,.4,2.64,.41,mat('#e7e0d7'));
+   for(let x=-2.7;x<3.0;x+=1.05)box(roomRoot,.025,.91,.68,x,2.21,-.01,dark);
+   box(roomRoot,5.5,.65,.87,-.2,2.92,2.16,mat('#bba992'));
+   box(roomRoot,4.8,1.23,.19,0,-.45,.07,mat('#e9dfd2'));
+   box(roomRoot,4.5,1.0,.74,0,-.45,-.34,wood);
+   for(const x of [-1.35,0,1.35]){
+     cylinder(roomRoot,.26,.25,.055,x,-1.35,-.06,dark);
+     cylinder(roomRoot,.11,.13,.60,x,-1.35,-.34,dark);
+   }
+   plant(roomRoot,3.7,1.65);
+ }
+}
+function setWall(color){wallColor=color;wallMaterials.forEach(m=>m.color.set(wallPalette[color]));document.querySelectorAll('[data-wall]').forEach(el=>el.classList.toggle('selected',el.dataset.wall===color));}
+function setTime(isNight){nightMode=isNight;document.body.classList.toggle('scene-night',isNight&&activeScene==='probar');document.querySelector('#day').classList.toggle('selected',!isNight);document.querySelector('#night').classList.toggle('selected',isNight);roomLight.intensity=isNight?.32:2.4;sunlight.intensity=isNight?.12:2.1;nightFill.intensity=isNight?.7:0;renderer.toneMappingExposure=isNight?.85:1.42;}
+function changeScene(mode){activeScene=mode;const isViewer=mode==='visualizador',isTry=mode==='probar';document.body.classList.toggle('scene-room',!isViewer);document.body.classList.toggle('scene-try',isTry);roomRoot.visible=!isViewer;
+ document.querySelectorAll('[data-scene]').forEach(b=>{const active=b.dataset.scene===mode;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
+ const texts={visualizador:['La luz en','movimiento.','Tres aros luminosos, infinitas posibilidades de diseño.'],sala:['Luz para','vivir.','Una propuesta de iluminación en una sala moderna.'],comedor:['Momentos que','iluminan.','Luminaria en un comedor contemporáneo.'],cocina:['Diseño y','función.','Iluminación decorativa en una cocina moderna.'],probar:['Tu sala,','tu estilo.','Cambia los colores de las paredes y descubre la luz de día o de noche.']};
+ const [a,b,desc]=texts[mode];document.querySelector('.caption h1').innerHTML=`${a}<br><em>${b}</em>`;document.querySelector('.caption p').textContent=desc;
+ controls.enabled=isViewer;controls.enableRotate=isViewer;controls.enableZoom=isViewer;controls.enablePan=isViewer;
+ if(!isViewer){chooseMode('horizontal');createRoom(mode);setWall(wallColor);camera.position.set(5,-10.8,4.1);controls.target.set(0,0,1.25);camera.fov=46;controls.update();}else{camera.position.set(4.15,-6.2,3.6);controls.target.set(0,0,1.62);camera.fov=35;controls.update();}
+ camera.updateProjectionMatrix();setTime(nightMode);
+}
+document.querySelectorAll('[data-scene]').forEach(b=>b.addEventListener('click',()=>changeScene(b.dataset.scene)));
+document.querySelectorAll('[data-wall]').forEach(b=>b.addEventListener('click',()=>setWall(b.dataset.wall)));
+document.querySelector('#day').addEventListener('click',()=>setTime(false));document.querySelector('#night').addEventListener('click',()=>setTime(true));
+
 document.querySelector('#btn-horizontal').onclick=()=>chooseMode('horizontal');document.querySelector('#btn-diagonal').onclick=()=>chooseMode('diagonal');
 document.querySelector('#power').onclick=()=>{powered=!powered;document.querySelector('#power').classList.toggle('off',!powered);document.querySelector('#power').setAttribute('aria-label',powered?'Apagar iluminación':'Encender iluminación');updateBrightness();};
 document.querySelector('#brightness').oninput=updateBrightness;
-document.querySelector('#reset').onclick=()=>{chooseMode('horizontal');controls.reset();camera.position.set(4.15,-6.2,3.6);controls.target.set(0,0,1.62);document.querySelector('#brightness').value='1.65';powered=true;document.querySelector('#power').classList.remove('off');updateBrightness();};
+document.querySelector('#reset').onclick=()=>{changeScene('visualizador');chooseMode('horizontal');controls.reset();camera.position.set(4.15,-6.2,3.6);controls.target.set(0,0,1.62);document.querySelector('#brightness').value='1.65';powered=true;document.querySelector('#power').classList.remove('off');updateBrightness();};
 function onResize(){const w=innerWidth,h=innerHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false)}addEventListener('resize',onResize);onResize();
 renderer.setAnimationLoop(()=>{rings.forEach(r=>{if(!r)return;r.rotation.x+=((r.userData.tx??0)-r.rotation.x)*.075;r.rotation.y+=((r.userData.ty??0)-r.rotation.y)*.075;});if(rings.length)updateCables();controls.update();renderer.render(scene,camera);});
 </script>
